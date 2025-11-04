@@ -1,63 +1,75 @@
 #include <iostream>
-#include <vector>
-#include <queue>
+#include <string>
 using namespace std;
 
-void bubbleSort(vector<int> &arr) {
-    int n = arr.size();
-    for (int i = 0; i < n - 1; i++) {
-        for (int j = 0; j < n - i - 1; j++) {
-            if (arr[j] > arr[j + 1]) {
-                swap(arr[j], arr[j + 1]);
-            }
+struct Node {
+    string nama;
+    Node* next;
+};
+
+Node* head = NULL;
+Node* tail = NULL;
+
+// Tambah pasien normal
+void tambahNormal(string nama) {
+    Node* baru = new Node;
+    baru->nama = nama;
+    baru->next = NULL;
+
+    if (head == NULL) {       // kalau antrian kosong
+        head = tail = baru;
+    } else {
+        tail->next = baru;
+        tail = baru;
+    }
+}
+
+// Tambah pasien darurat (depan)
+void tambahDarurat(string nama) {
+    Node* baru = new Node;
+    baru->nama = nama;
+    baru->next = head;
+
+    head = baru;
+    if (tail == NULL) {
+        tail = baru;
+    }
+}
+
+// Layani pasien (hapus depan)
+void layani() {
+    if (head != NULL) {
+        cout << head->nama << endl;
+        Node* temp = head;
+        head = head->next;
+        delete temp;
+
+        if (head == NULL) {
+            tail = NULL;
         }
     }
 }
 
 int main() {
-    int V, E;
-    cout << "Masukkan jumlah teman dan edge: ";
-    cin >> V >> E;
+    int N;
+    cin >> N; //untuk banyak perintah
 
-    vector<vector<int>> graph(V);
-    for (int i = 0; i < E; i++) {
-        int u, v;
-        cin >> u >> v;
-        graph[u].push_back(v);
-        graph[v].push_back(u); 
-    }
+    for(int i = 0; i < N; i++){
+        string cmd, nama;
+        cin >> cmd;
 
-    int start;
-    cout << "Masukkan titik start: ";
-    cin >> start;
-
-    vector<int> visited(V, 0);
-    vector<int> hasil; 
-
-    queue<int> q;
-    q.push(start);
-    visited[start] = 1;
-
-    while (!q.empty()) {
-        int node = q.front();
-        q.pop();
-        hasil.push_back(node);
-
-        for (int neighbor : graph[node]) {
-            if (!visited[neighbor]) {
-                visited[neighbor] = 1;
-                q.push(neighbor);
-            }
+        if(cmd == "DATANG"){
+            cin >> nama;
+            tambahNormal(nama);
+        }
+        else if(cmd == "DARURAT"){
+            cin >> nama;
+            tambahDarurat(nama);
+        }
+        else if(cmd == "LAYANI"){
+            layani();
         }
     }
 
-    bubbleSort(hasil);
-
-    for (int node : hasil) {
-        cout << node << " ";
-    }
-    cout << endl;
-
     return 0;
 }
-//Masukkan jawaban disini
