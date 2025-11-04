@@ -88,9 +88,6 @@ int main() {
     cetak_array(hasil_rotasi);
     cout << "----------------------------------------\n" << endl;
 
-
-    // Jika Anda ingin menguji semua test case secara otomatis, 
-    // Anda bisa memindahkannya ke fungsi terpisah dan memanggilnya di sini.
-
     return 0;
 }}
+
