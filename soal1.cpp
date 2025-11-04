@@ -1,7 +1,7 @@
+
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include <cstdlib> // Untuk fungsi system()
 
 using namespace std;
 
@@ -42,16 +42,10 @@ vector<int> arr_rotasi_kiri(int d, const vector<int> & arr_argha) {
 }
 
 int main() {
-    // Membersihkan terminal (untuk Windows: "cls", untuk Linux/Mac: "clear")
-    #ifdef _WIN32
-        system("cls"); 
-    #else
-        system("clear");
-    #endif
-
+    system ("cls");
     int n, d;
 
-    // --- Input Jumlah Elemen (n) dan Rotasi (d) ---
+    // Input Jumlah Elemen (n) dan Rotasi (d)
     cout << "Masukkan n (jumlah elemen) dan d (banyak rotasi): ";
     if (!(cin >> n >> d)) {
         cerr << "Input tidak valid." << endl;
@@ -65,7 +59,7 @@ int main() {
 
     vector<int> input_arr(n);
 
-    // --- Input Elemen Array ---
+    // Input Elemen Array
     cout << "Masukkan " << n << " elemen bilangan bulat (dipisahkan spasi):" << endl;
     for (int i = 0; i < n; i++) {
         if (!(cin >> input_arr[i])) {
@@ -74,10 +68,10 @@ int main() {
         }
     }
 
-    // --- Proses Rotasi ---
+    // Proses Rotasi
     vector<int> hasil_rotasi = arr_rotasi_kiri(d, input_arr);
 
-    // --- Output Hasil ---
+    // Output Hasil
     cout << "\n----------------------------------------" << endl;
     cout << "Array Asal: ";
     cetak_array(input_arr);
@@ -89,5 +83,4 @@ int main() {
     cout << "----------------------------------------\n" << endl;
 
     return 0;
-}}
-
+}
